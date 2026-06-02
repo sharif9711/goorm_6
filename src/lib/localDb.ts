@@ -170,15 +170,43 @@ function seedDemoData(): LocalDatabase {
     access_token: 'local-demo-token',
   }
 
+  const habitId = generateId()
+  const habits: Habit[] = [
+    {
+      id: habitId,
+      user_id: userId,
+      title: '물 2L 마시기',
+      target_days: 7,
+      created_at: now.toISOString(),
+    },
+  ]
+
+  const goals: Goal[] = [
+    {
+      id: generateId(),
+      user_id: userId,
+      title: '독서 50권',
+      target_value: 50,
+      current_value: 12,
+    },
+    {
+      id: generateId(),
+      user_id: userId,
+      title: '영어 공부',
+      target_value: 100,
+      current_value: 35,
+    },
+  ]
+
   const db: LocalDatabase = {
     users: [user],
     accounts: [{ user_id: userId, email: 'demo@goorm.com', password: 'demo1234' }],
     session,
     tasks,
     events,
-    habits: [],
+    habits,
     habit_logs: [],
-    goals: [],
+    goals,
     ddays,
     categories: [],
   }

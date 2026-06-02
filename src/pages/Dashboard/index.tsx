@@ -6,6 +6,7 @@ import { useAuthUserId } from '@/store/authStore'
 import { useTaskStore } from '@/store/taskStore'
 import { fetchTodayEvents } from '@/api/eventApi'
 import { fetchNearestDday } from '@/api/ddayApi'
+import { fetchHabits, fetchTodayHabitLogs } from '@/api/habitApi'
 import { getDdayLabel } from '@/utils/date'
 
 export default function DashboardPage() {
@@ -13,6 +14,7 @@ export default function DashboardPage() {
   const { tasks, fetchTodayTasks } = useTaskStore()
   const [eventCount, setEventCount] = useState(0)
   const [nearestDday, setNearestDday] = useState<string | null>(null)
+  const [habitCompletionRate, setHabitCompletionRate] = useState(0)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -26,9 +28,18 @@ export default function DashboardPage() {
 
         const dday = await fetchNearestDday(userId)
         setNearestDday(dday ? getDdayLabel(dday.target_date) : null)
+
+        const habits = await fetchHabits(userId)
+        if (habits.length > 0) {
+          const logs = await fetchTodayHabitLogs(habits.map((h) => h.id))
+          setHabitCompletionRate(Math.round((logs.length / habits.length) * 100))
+        } else {
+          setHabitCompletionRate(0)
+        }
       } catch {
         setEventCount(0)
         setNearestDday(null)
+        setHabitCompletionRate(0)
       } finally {
         setLoading(false)
       }
@@ -60,7 +71,7 @@ export default function DashboardPage() {
         todayTaskCount={tasks.length}
         todayEventCount={eventCount}
         nearestDday={nearestDday}
-        habitCompletionRate={0}
+        habitCompletionRate={habitCompletionRate}
         weeklyProductivity={completionRate}
       />
       <Card title="오늘 할 일 미리보기" style={{ marginTop: 16 }}>

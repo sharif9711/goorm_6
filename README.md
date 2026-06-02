@@ -84,28 +84,19 @@ npm run build
 
 구조: **GitHub(코드) → Vercel(호스팅) → Supabase(DB·로그인)**
 
-### 1. GitHub에 올리기
+### 1. GitHub
+
+저장소: [github.com/sharif9711/goorm_6](https://github.com/sharif9711/goorm_6)
 
 ```bash
 cd goorm-todo-list
-git init
-git add .
-git commit -m "chore: initial deploy setup"
-gh repo create goorm-todo-list --public --source=. --push
-```
-
-`gh`가 없으면 GitHub에서 저장소를 만든 뒤:
-
-```bash
-git remote add origin https://github.com/USERNAME/goorm-todo-list.git
-git branch -M main
-git push -u origin main
+git push origin main
 ```
 
 ### 2. Vercel 연결
 
-1. [vercel.com](https://vercel.com) → **Add New Project** → GitHub 저장소 Import
-2. **Root Directory**: 저장소 루트가 `goorm-todo-list`면 `.` / 상위 `goorm_6`면 `goorm-todo-list`
+1. [vercel.com](https://vercel.com) → **Add New Project** → `sharif9711/goorm_6` Import
+2. **Root Directory**: `.` (저장소 루트 — 기본값 그대로)
 3. **Environment Variables** (Production + Preview):
 
 | Name | Value |

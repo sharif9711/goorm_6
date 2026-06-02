@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
   Button,
-  Card,
   Checkbox,
   Space,
   Spin,
@@ -12,6 +11,7 @@ import {
 } from 'antd'
 import { PlusOutlined, DeleteOutlined, FireOutlined } from '@ant-design/icons'
 import { PageHeader } from '@/components/common/PageHeader'
+import { PageCard } from '@/components/common/PageCard'
 import { HabitFormModal, type HabitFormValues } from '@/components/habit/HabitFormModal'
 import { HabitContribution } from '@/components/habit/HabitContribution'
 import { useAuthUserId } from '@/store/authStore'
@@ -104,9 +104,9 @@ export default function HabitsPage() {
           <Spin size="large" />
         </div>
       ) : habits.length === 0 ? (
-        <Card>
+        <PageCard>
           <Typography.Text type="secondary">등록된 습관이 없습니다.</Typography.Text>
-        </Card>
+        </PageCard>
       ) : (
         <Space direction="vertical" size={16} style={{ width: '100%' }}>
           {habits.map((habit) => {
@@ -115,7 +115,7 @@ export default function HabitsPage() {
             const completedDates = new Set(habit.logs.map((l) => l.completed_date))
 
             return (
-              <Card
+              <PageCard
                 key={habit.id}
                 title={
                   <Space>
@@ -149,7 +149,7 @@ export default function HabitsPage() {
                   최근 35일
                 </Typography.Text>
                 <HabitContribution completedDates={completedDates} />
-              </Card>
+              </PageCard>
             )
           })}
         </Space>

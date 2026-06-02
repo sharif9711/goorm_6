@@ -13,6 +13,7 @@ body,
 
 body {
   font-family:
+    'Pretendard',
     -apple-system,
     BlinkMacSystemFont,
     'Segoe UI',
@@ -20,4 +21,343 @@ body {
     'Helvetica Neue',
     Arial,
     sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- App shell ---- */
+.goorm-sider {
+  border-right: 1px solid var(--goorm-border);
+  box-shadow: 4px 0 24px rgba(15, 17, 23, 0.04);
+}
+
+.goorm-sider-logo {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--goorm-border);
+}
+
+.goorm-sider-logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #5b6cff 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(91, 108, 255, 0.35);
+}
+
+.goorm-sider-logo-text {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #5b6cff, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.goorm-sider-menu {
+  padding: 12px 0 24px;
+}
+
+.goorm-header {
+  padding: 0 24px !important;
+  height: 64px !important;
+  line-height: 64px !important;
+  border-bottom: 1px solid var(--goorm-border);
+  backdrop-filter: blur(12px);
+}
+
+.goorm-header-user {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.goorm-header-user:hover {
+  background: var(--goorm-hover);
+}
+
+.goorm-main {
+  padding: 24px !important;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .goorm-main {
+    padding: 16px !important;
+  }
+}
+
+/* ---- Page ---- */
+.goorm-page-header {
+  margin-bottom: 28px;
+}
+
+.goorm-page-title {
+  margin: 0 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  font-size: 28px !important;
+}
+
+.goorm-page-subtitle {
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+/* ---- Cards ---- */
+.goorm-card {
+  border: 1px solid var(--goorm-border) !important;
+  box-shadow: var(--goorm-shadow) !important;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.goorm-card:hover {
+  box-shadow: var(--goorm-shadow-hover) !important;
+}
+
+.goorm-card .ant-card-head {
+  border-bottom: 1px solid var(--goorm-border);
+  font-weight: 600;
+}
+
+/* ---- Stat cards ---- */
+.goorm-stat-card {
+  border: 1px solid var(--goorm-border) !important;
+  box-shadow: var(--goorm-shadow) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.goorm-stat-card .ant-card-body {
+  padding: 20px !important;
+}
+
+.goorm-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.goorm-stat-icon--blue {
+  background: rgba(91, 108, 255, 0.12);
+  color: #5b6cff;
+}
+
+.goorm-stat-icon--green {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.goorm-stat-icon--orange {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.goorm-stat-icon--red {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.goorm-stat-label {
+  font-size: 13px;
+  color: var(--goorm-text-secondary);
+  margin-bottom: 4px;
+}
+
+.goorm-stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* ---- Auth ---- */
+.goorm-auth-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 900px) {
+  .goorm-auth-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .goorm-auth-hero {
+    display: none !important;
+  }
+}
+
+.goorm-auth-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+  background: linear-gradient(145deg, #5b6cff 0%, #7c3aed 50%, #5b6cff 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.goorm-auth-hero::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  top: -100px;
+  right: -100px;
+}
+
+.goorm-auth-hero-title {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 16px;
+  position: relative;
+}
+
+.goorm-auth-hero-desc {
+  font-size: 17px;
+  opacity: 0.9;
+  line-height: 1.6;
+  max-width: 360px;
+  position: relative;
+}
+
+.goorm-auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  background: var(--goorm-bg-layout);
+}
+
+.goorm-auth-card {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--goorm-border) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--goorm-shadow-hover) !important;
+}
+
+.goorm-auth-card .ant-card-body {
+  padding: 32px !important;
+}
+
+/* ---- Lists & empty ---- */
+.goorm-list-card .ant-list-item {
+  padding: 14px 0 !important;
+  border-bottom: 1px solid var(--goorm-border) !important;
+}
+
+.goorm-list-card .ant-list-item:last-child {
+  border-bottom: none !important;
+}
+
+.goorm-empty-state {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+/* ---- Calendar ---- */
+.goorm-calendar-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 8px;
+}
+
+.goorm-calendar-wrap .rbc-calendar {
+  font-family: inherit;
+}
+
+.goorm-calendar-wrap .rbc-toolbar button {
+  border-radius: 8px;
+}
+
+.goorm-calendar-wrap .rbc-event {
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(135deg, #5b6cff, #7c3aed);
+}
+
+.goorm-calendar-wrap .rbc-today {
+  background: rgba(91, 108, 255, 0.06);
+}
+
+/* ---- Habit grid ---- */
+.goorm-habit-cell-done {
+  background: #22c55e !important;
+  border-color: #16a34a !important;
+}
+
+/* ---- Productivity hero ---- */
+.goorm-score-hero {
+  text-align: center;
+  padding: 32px 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(91, 108, 255, 0.08), rgba(139, 92, 246, 0.08));
+  border: 1px solid var(--goorm-border);
+  margin-bottom: 24px;
+}
+
+.goorm-score-value {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #5b6cff, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+/* CSS variables (light default) */
+:root,
+[data-theme='light'] {
+  --goorm-bg-layout: #eef1f8;
+  --goorm-border: #e8ecf4;
+  --goorm-hover: rgba(91, 108, 255, 0.06);
+  --goorm-text-secondary: #5c6478;
+  --goorm-shadow: 0 4px 24px rgba(26, 29, 38, 0.06);
+  --goorm-shadow-hover: 0 8px 32px rgba(26, 29, 38, 0.1);
+}
+
+[data-theme='dark'] {
+  --goorm-bg-layout: #0f1117;
+  --goorm-border: #2e3344;
+  --goorm-hover: rgba(255, 255, 255, 0.06);
+  --goorm-text-secondary: #9ca3b8;
+  --goorm-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --goorm-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme='dark'] .goorm-calendar-wrap .rbc-off-range-bg {
+  background: #1a1d27;
+}
+
+[data-theme='dark'] .goorm-stat-icon--blue {
+  background: rgba(91, 108, 255, 0.2);
 }

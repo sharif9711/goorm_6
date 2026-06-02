@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Button, Card, message, Segmented, Spin } from 'antd'
+import { Button, message, Segmented, Spin } from 'antd'
+import { PageCard } from '@/components/common/PageCard'
 import { PlusOutlined } from '@ant-design/icons'
 import { Calendar, dateFnsLocalizer, Views, type View } from 'react-big-calendar'
 import { format, parse, startOfWeek, getDay } from 'date-fns'
@@ -174,7 +175,7 @@ export default function CalendarPage() {
         }
       />
 
-      <Card style={{ marginBottom: 16 }}>
+      <PageCard style={{ marginBottom: 16 }}>
         <Segmented
           value={view}
           onChange={(v) => setView(v as View)}
@@ -185,15 +186,15 @@ export default function CalendarPage() {
             { label: 'Agenda', value: Views.AGENDA },
           ]}
         />
-      </Card>
+      </PageCard>
 
-      <Card>
+      <PageCard>
         {loading ? (
           <div style={{ textAlign: 'center', padding: 48 }}>
             <Spin size="large" />
           </div>
         ) : (
-          <div style={{ height: 560 }}>
+          <div className="goorm-calendar-wrap" style={{ height: 560 }}>
             <Calendar
               localizer={localizer}
               culture="ko"
@@ -211,7 +212,7 @@ export default function CalendarPage() {
             />
           </div>
         )}
-      </Card>
+      </PageCard>
 
       <EventFormModal
         open={modalOpen}

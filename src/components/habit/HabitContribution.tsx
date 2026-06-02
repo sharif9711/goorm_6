@@ -16,12 +16,13 @@ export function HabitContribution({ completedDates, days = 35 }: HabitContributi
         return (
           <Tooltip key={date} title={date}>
             <div
+              className={done ? 'goorm-habit-cell-done' : undefined}
               style={{
                 width: 14,
                 height: 14,
                 borderRadius: 3,
-                background: done ? '#52c41a' : '#f0f0f0',
-                border: '1px solid #d9d9d9',
+                background: done ? undefined : 'var(--goorm-border)',
+                border: '1px solid var(--goorm-border)',
               }}
             />
           </Tooltip>

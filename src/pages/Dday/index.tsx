@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
   Button,
-  Card,
   Col,
   Row,
   Spin,
@@ -11,6 +10,7 @@ import {
 } from 'antd'
 import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { PageHeader } from '@/components/common/PageHeader'
+import { PageCard } from '@/components/common/PageCard'
 import { DdayFormModal, type DdayFormValues } from '@/components/dday/DdayFormModal'
 import { useAuthUserId } from '@/store/authStore'
 import * as ddayApi from '@/api/ddayApi'
@@ -96,14 +96,14 @@ export default function DdayPage() {
           <Spin size="large" />
         </div>
       ) : ddays.length === 0 ? (
-        <Card>
+        <PageCard>
           <Typography.Text type="secondary">등록된 D-Day가 없습니다.</Typography.Text>
-        </Card>
+        </PageCard>
       ) : (
         <Row gutter={[16, 16]}>
           {ddays.map((dday) => (
             <Col xs={24} sm={12} md={8} key={dday.id}>
-              <Card
+              <PageCard
                 extra={
                   <>
                     <Button type="text" icon={<EditOutlined />} onClick={() => setEditDday(dday)} />
@@ -123,7 +123,7 @@ export default function DdayPage() {
                   {getDdayLabel(dday.target_date)}
                 </Typography.Title>
                 <Typography.Text type="secondary">{dday.target_date}</Typography.Text>
-              </Card>
+              </PageCard>
             </Col>
           ))}
         </Row>

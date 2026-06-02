@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
   Button,
-  Card,
   Form,
   Input,
   List,
@@ -22,6 +21,7 @@ import {
 } from '@ant-design/icons'
 import { useSearchParams } from 'react-router-dom'
 import { PageHeader } from '@/components/common/PageHeader'
+import { PageCard } from '@/components/common/PageCard'
 import { useAuthUserId } from '@/store/authStore'
 import * as shareApi from '@/api/shareApi'
 import type { ShareRole } from '@/types'
@@ -167,7 +167,7 @@ export default function SharePage() {
         }
       />
 
-      <Card title="초대 링크로 참여" style={{ marginBottom: 16 }}>
+      <PageCard title="초대 링크로 참여" style={{ marginBottom: 16 }}>
         <Space.Compact style={{ width: '100%', maxWidth: 480 }}>
           <Input
             placeholder="초대 토큰 또는 링크의 join= 값"
@@ -178,10 +178,10 @@ export default function SharePage() {
             참여
           </Button>
         </Space.Compact>
-      </Card>
+      </PageCard>
 
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-        <Card title="내 캘린더" style={{ flex: '1 1 240px', minWidth: 240 }}>
+        <PageCard title="내 캘린더" style={{ flex: '1 1 240px', minWidth: 240 }}>
           <List
             loading={loading}
             dataSource={calendars}
@@ -206,10 +206,10 @@ export default function SharePage() {
               </List.Item>
             )}
           />
-        </Card>
+        </PageCard>
 
         {selected && (
-          <Card
+          <PageCard
             title={selected.name}
             style={{ flex: '2 1 400px' }}
             extra={
@@ -279,12 +279,12 @@ export default function SharePage() {
               dataSource={selected.members}
               pagination={false}
             />
-          </Card>
+          </PageCard>
         )}
       </div>
 
       {createOpen && (
-        <Card title="새 공유 캘린더" style={{ marginTop: 16, maxWidth: 400 }}>
+        <PageCard title="새 공유 캘린더" style={{ marginTop: 16, maxWidth: 400 }}>
           <Form onFinish={(v) => void handleCreate(v)}>
             <Form.Item name="name" rules={[{ required: true, message: '이름 입력' }]}>
               <Input placeholder="예: 팀 일정" />
@@ -296,7 +296,7 @@ export default function SharePage() {
               <Button onClick={() => setCreateOpen(false)}>취소</Button>
             </Space>
           </Form>
-        </Card>
+        </PageCard>
       )}
     </div>
   )

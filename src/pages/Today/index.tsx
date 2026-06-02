@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Card, List, Spin, message } from 'antd'
+import { List, Spin, message } from 'antd'
+import { PageCard } from '@/components/common/PageCard'
 import { PageHeader } from '@/components/common/PageHeader'
 import { TaskListItem } from '@/components/task/TaskListItem'
 import {
@@ -97,7 +98,7 @@ export default function TodayPage() {
         subtitle="오늘 마감 할 일을 확인하고 완료하세요"
       />
 
-      <Card>
+      <PageCard className="goorm-list-card">
         {loading ? (
           <div style={{ textAlign: 'center', padding: 48 }}>
             <Spin />
@@ -122,7 +123,7 @@ export default function TodayPage() {
             )}
           />
         )}
-      </Card>
+      </PageCard>
 
       <TaskFormModal
         open={!!editTask}

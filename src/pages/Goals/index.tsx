@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
   Button,
-  Card,
   Col,
   InputNumber,
   Progress,
@@ -13,6 +12,7 @@ import {
 } from 'antd'
 import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { PageHeader } from '@/components/common/PageHeader'
+import { PageCard } from '@/components/common/PageCard'
 import { GoalFormModal, type GoalFormValues } from '@/components/goal/GoalFormModal'
 import { useAuthUserId } from '@/store/authStore'
 import * as goalApi from '@/api/goalApi'
@@ -100,9 +100,9 @@ export default function GoalsPage() {
           <Spin size="large" />
         </div>
       ) : goals.length === 0 ? (
-        <Card>
+        <PageCard>
           <Typography.Text type="secondary">등록된 목표가 없습니다.</Typography.Text>
-        </Card>
+        </PageCard>
       ) : (
         <Row gutter={[16, 16]}>
           {goals.map((goal) => {
@@ -112,7 +112,7 @@ export default function GoalsPage() {
             )
             return (
               <Col xs={24} sm={12} lg={8} key={goal.id}>
-                <Card
+                <PageCard
                   title={goal.title}
                   extra={
                     <>
@@ -141,7 +141,7 @@ export default function GoalsPage() {
                     />
                     <Typography.Text type="secondary">/ {goal.target_value}</Typography.Text>
                   </div>
-                </Card>
+                </PageCard>
               </Col>
             )
           })}

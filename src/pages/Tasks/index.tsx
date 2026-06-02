@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Button, Card, List, Spin, message } from 'antd'
+import { Button, List, Spin, message } from 'antd'
+import { PageCard } from '@/components/common/PageCard'
 import { PlusOutlined } from '@ant-design/icons'
 import { PageHeader } from '@/components/common/PageHeader'
 import { TaskListItem } from '@/components/task/TaskListItem'
@@ -83,7 +84,7 @@ export default function TasksPage() {
         }
       />
 
-      <Card>
+      <PageCard className="goorm-list-card">
         {loading ? (
           <div style={{ textAlign: 'center', padding: 48 }}>
             <Spin />
@@ -103,7 +104,7 @@ export default function TasksPage() {
             )}
           />
         )}
-      </Card>
+      </PageCard>
 
       <TaskFormModal
         open={modalOpen}

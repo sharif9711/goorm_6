@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Card, List, Spin, Typography } from 'antd'
+import { List, Spin, Typography } from 'antd'
+import { PageCard } from '@/components/common/PageCard'
 import { PageHeader } from '@/components/common/PageHeader'
 import { DashboardStats } from '@/components/dashboard/DashboardStats'
 import { useAuthUserId } from '@/store/authStore'
@@ -74,7 +75,7 @@ export default function DashboardPage() {
         habitCompletionRate={habitCompletionRate}
         weeklyProductivity={completionRate}
       />
-      <Card title="오늘 할 일 미리보기" style={{ marginTop: 16 }}>
+      <PageCard title="오늘 할 일 미리보기" className="goorm-list-card" style={{ marginTop: 16 }}>
         {tasks.length === 0 ? (
           <Typography.Text type="secondary">오늘 마감인 할 일이 없습니다.</Typography.Text>
         ) : (
@@ -90,7 +91,7 @@ export default function DashboardPage() {
             )}
           />
         )}
-      </Card>
+      </PageCard>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Layout, Menu, Button, Avatar, Dropdown, theme, Drawer } from 'antd'
+import { Layout, Menu, Button, Avatar, Dropdown, Drawer, Typography } from 'antd'
 import {
   DashboardOutlined,
   CalendarOutlined,
@@ -17,41 +17,101 @@ import {
   LogoutOutlined,
   UserOutlined,
   ThunderboltOutlined,
+  CloudOutlined,
 } from '@ant-design/icons'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import type { MenuProps } from 'antd'
 import { useAuthStore } from '@/store/authStore'
 import { useSettingStore } from '@/store/settingStore'
 import { useIsMobile } from '@/hooks/useMediaQuery'
 
 const { Header, Sider, Content } = Layout
 
-const menuItems = [
-  { key: '/app', icon: <DashboardOutlined />, label: '대시보드' },
-  { key: '/app/today', icon: <ThunderboltOutlined />, label: '오늘' },
-  { key: '/app/calendar', icon: <CalendarOutlined />, label: '캘린더' },
-  { key: '/app/tasks', icon: <CheckSquareOutlined />, label: '할일' },
-  { key: '/app/goals', icon: <FlagOutlined />, label: '목표' },
-  { key: '/app/habits', icon: <FireOutlined />, label: '습관' },
-  { key: '/app/dday', icon: <ClockCircleOutlined />, label: 'D-Day' },
-  { key: '/app/share', icon: <ShareAltOutlined />, label: '공유' },
-  { key: '/app/stats', icon: <BarChartOutlined />, label: '통계' },
-  { key: '/app/settings', icon: <SettingOutlined />, label: '설정' },
+const menuItems: MenuProps['items'] = [
+  {
+    type: 'group',
+    label: '홈',
+    children: [
+      { key: '/app', icon: <DashboardOutlined />, label: '대시보드' },
+      { key: '/app/today', icon: <ThunderboltOutlined />, label: '오늘' },
+    ],
+  },
+  {
+    type: 'group',
+    label: '관리',
+    children: [
+      { key: '/app/calendar', icon: <CalendarOutlined />, label: '캘린더' },
+      { key: '/app/tasks', icon: <CheckSquareOutlined />, label: '할일' },
+      { key: '/app/goals', icon: <FlagOutlined />, label: '목표' },
+      { key: '/app/habits', icon: <FireOutlined />, label: '습관' },
+      { key: '/app/dday', icon: <ClockCircleOutlined />, label: 'D-Day' },
+    ],
+  },
+  {
+    type: 'group',
+    label: '더보기',
+    children: [
+      { key: '/app/share', icon: <ShareAltOutlined />, label: '공유' },
+      { key: '/app/stats', icon: <BarChartOutlined />, label: '통계' },
+      { key: '/app/settings', icon: <SettingOutlined />, label: '설정' },
+    ],
+  },
 ]
 
 function SidebarMenu({ onNavigate }: { onNavigate?: () => void }) {
   const navigate = useNavigate()
   const location = useLocation()
+  const path = location.pathname.replace(/\/$/, '') || '/app'
 
   return (
     <Menu
       mode="inline"
-      selectedKeys={[location.pathname === '/app/' ? '/app' : location.pathname]}
+      selectedKeys={[path === '/app' ? '/app' : path]}
       items={menuItems}
       onClick={({ key }) => {
         navigate(key)
         onNavigate?.()
       }}
-      style={{ borderInlineEnd: 0, flex: 1 }}
+      className="goorm-sider-menu"
+      style={{ borderInlineEnd: 0, background: 'transparent' }}
+    />
+  )
+}
+
+function Logo({ collapsed }: { collapsed?: boolean }) {
+  return (
+    <div className="goorm-sider-logo">
+      <div className="goorm-sider-logo-icon">
+        <CloudOutlined />
+      </div>
+      {!collapsed && <span className="goorm-sider-logo-text">구름 TODO</span>}
+    </div>
+  )
+}
+
+function CollapsedNav() {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const path = location.pathname.replace(/\/$/, '') || '/app'
+
+  const items = [
+    { key: '/app', icon: <DashboardOutlined /> },
+    { key: '/app/today', icon: <ThunderboltOutlined /> },
+    { key: '/app/calendar', icon: <CalendarOutlined /> },
+    { key: '/app/tasks', icon: <CheckSquareOutlined /> },
+    { key: '/app/goals', icon: <FlagOutlined /> },
+    { key: '/app/habits', icon: <FireOutlined /> },
+    { key: '/app/stats', icon: <BarChartOutlined /> },
+    { key: '/app/settings', icon: <SettingOutlined /> },
+  ]
+
+  return (
+    <Menu
+      mode="inline"
+      selectedKeys={[path]}
+      style={{ border: 0, background: 'transparent' }}
+      items={items}
+      onClick={({ key }) => navigate(key)}
     />
   )
 }
@@ -59,7 +119,6 @@ function SidebarMenu({ onNavigate }: { onNavigate?: () => void }) {
 export function AppLayout() {
   const navigate = useNavigate()
   const isMobile = useIsMobile()
-  const { token } = theme.useToken()
   const profile = useAuthStore((s) => s.profile)
   const logout = useAuthStore((s) => s.logout)
   const sidebarCollapsed = useSettingStore((s) => s.sidebarCollapsed)
@@ -68,7 +127,7 @@ export function AppLayout() {
   const themeMode = useSettingStore((s) => s.theme)
   const [drawerOpen, setDrawerOpen] = useState(false)
 
-  const siderWidth = isMobile ? 0 : sidebarCollapsed ? 80 : 220
+  const siderWidth = isMobile ? 0 : sidebarCollapsed ? 80 : 248
 
   const userMenu = {
     items: [
@@ -78,10 +137,12 @@ export function AppLayout() {
         label: '설정',
         onClick: () => navigate('/app/settings'),
       },
+      { type: 'divider' as const },
       {
         key: 'logout',
         icon: <LogoutOutlined />,
         label: '로그아웃',
+        danger: true,
         onClick: () => void logout().then(() => navigate('/login')),
       },
     ],
@@ -91,10 +152,13 @@ export function AppLayout() {
     <Layout style={{ minHeight: '100vh' }}>
       {!isMobile && (
         <Sider
+          className="goorm-sider"
           collapsible
           collapsed={sidebarCollapsed}
           onCollapse={setSidebarCollapsed}
-          width={220}
+          width={248}
+          collapsedWidth={80}
+          trigger={null}
           style={{
             overflow: 'auto',
             height: '100vh',
@@ -105,36 +169,14 @@ export function AppLayout() {
             zIndex: 100,
           }}
         >
-          <div
-            style={{
-              height: 64,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 700,
-              fontSize: sidebarCollapsed ? 14 : 18,
-              color: token.colorPrimary,
-            }}
-          >
-            {sidebarCollapsed ? '구름' : '구름-TODO'}
-          </div>
-          <SidebarMenu />
+          <Logo collapsed={sidebarCollapsed} />
+          {!sidebarCollapsed && <SidebarMenu />}
+          {sidebarCollapsed && <CollapsedNav />}
         </Sider>
       )}
 
-      <Layout style={{ marginLeft: siderWidth, transition: 'margin-left 0.2s' }}>
-        <Header
-          style={{
-            padding: '0 16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            position: 'sticky',
-            top: 0,
-            zIndex: 99,
-            background: token.colorBgContainer,
-          }}
-        >
+      <Layout style={{ marginLeft: siderWidth, transition: 'margin-left 0.25s ease' }}>
+        <Header className="goorm-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {isMobile ? (
               <Button
@@ -150,32 +192,47 @@ export function AppLayout() {
               />
             )}
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Button
               type="text"
+              shape="circle"
               icon={themeMode === 'light' ? <MoonOutlined /> : <SunOutlined />}
               onClick={toggleTheme}
             />
             <Dropdown menu={userMenu} placement="bottomRight">
-              <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Avatar icon={<UserOutlined />} src={profile?.avatar_url ?? undefined} />
-                {!isMobile && <span>{profile?.nickname ?? profile?.email}</span>}
+              <div className="goorm-header-user">
+                <Avatar
+                  size={36}
+                  style={{ background: 'linear-gradient(135deg, #5B6CFF, #8B5CF6)' }}
+                  icon={<UserOutlined />}
+                  src={profile?.avatar_url ?? undefined}
+                />
+                {!isMobile && (
+                  <Typography.Text strong style={{ fontSize: 14 }}>
+                    {profile?.nickname ?? profile?.email}
+                  </Typography.Text>
+                )}
               </div>
             </Dropdown>
           </div>
         </Header>
 
-        <Content style={{ margin: isMobile ? 12 : 24, minHeight: 280 }}>
+        <Content className="goorm-main">
           <Outlet />
         </Content>
       </Layout>
 
       <Drawer
-        title="구름-TODO-LIST"
+        title={
+          <span className="goorm-sider-logo-text" style={{ fontSize: 16 }}>
+            구름 TODO
+          </span>
+        }
         placement="left"
         onClose={() => setDrawerOpen(false)}
         open={drawerOpen}
         styles={{ body: { padding: 0 } }}
+        width={280}
       >
         <SidebarMenu onNavigate={() => setDrawerOpen(false)} />
       </Drawer>

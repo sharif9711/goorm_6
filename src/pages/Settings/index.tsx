@@ -1,5 +1,6 @@
-import { Card, Switch, Typography, Space, Button, message, Alert, Tag } from 'antd'
+import { Switch, Typography, Space, Button, message, Alert, Tag } from 'antd'
 import { PageHeader } from '@/components/common/PageHeader'
+import { PageCard } from '@/components/common/PageCard'
 import { useSettingStore } from '@/store/settingStore'
 import { useAuthStore } from '@/store/authStore'
 import { getDataMode } from '@/lib/config'
@@ -23,7 +24,7 @@ export default function SettingsPage() {
     <div>
       <PageHeader title="설정" subtitle="앱 환경을 설정하세요" />
 
-      <Card title="데이터 저장소" style={{ marginBottom: 16 }}>
+      <PageCard title="데이터 저장소" style={{ marginBottom: 16 }}>
         <Space direction="vertical">
           <div>
             현재 모드:{' '}
@@ -43,24 +44,24 @@ export default function SettingsPage() {
             </Typography.Text>
           )}
         </Space>
-      </Card>
+      </PageCard>
 
-      <Card title="계정">
+      <PageCard title="계정">
         <Space direction="vertical">
           <Typography.Text>이메일: {profile?.email}</Typography.Text>
           <Typography.Text>닉네임: {profile?.nickname ?? '-'}</Typography.Text>
         </Space>
-      </Card>
+      </PageCard>
 
-      <Card title="화면" style={{ marginTop: 16 }}>
+      <PageCard title="화면" style={{ marginTop: 16 }}>
         <Space>
           <Typography.Text>다크 모드</Typography.Text>
           <Switch checked={theme === 'dark'} onChange={toggleTheme} />
         </Space>
-      </Card>
+      </PageCard>
 
       {dataMode === 'local' && (
-        <Card title="로컬 데이터" style={{ marginTop: 16 }}>
+        <PageCard title="로컬 데이터" style={{ marginTop: 16 }}>
           <Alert
             type="info"
             showIcon
@@ -69,16 +70,16 @@ export default function SettingsPage() {
             style={{ marginBottom: 12 }}
           />
           <Button onClick={() => void handleResetDemo()}>데모 데이터 초기화</Button>
-        </Card>
+        </PageCard>
       )}
 
       {dataMode === 'supabase' && (
-        <Card title="Supabase 설정 확인" style={{ marginTop: 16 }}>
+        <PageCard title="Supabase 설정 확인" style={{ marginTop: 16 }}>
           <Typography.Paragraph>
             SQL Editor에서 <Typography.Text code>supabase/schema.sql</Typography.Text> 실행
             여부를 확인하세요. 테이블·RLS가 없으면 할 일 저장이 실패할 수 있습니다.
           </Typography.Paragraph>
-        </Card>
+        </PageCard>
       )}
     </div>
   )

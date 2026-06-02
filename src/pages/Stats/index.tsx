@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Card, Col, Row, Spin, Statistic, Typography } from 'antd'
+import { Col, Row, Spin, Statistic, Typography } from 'antd'
+import { PageCard } from '@/components/common/PageCard'
 import {
   BarChart,
   Bar,
@@ -45,37 +46,35 @@ export default function StatsPage() {
     <div>
       <PageHeader title="통계" subtitle="생산성 점수와 차트를 확인하세요" />
 
-      <Card style={{ marginBottom: 16, textAlign: 'center' }}>
+      <div className="goorm-score-hero">
         <Typography.Text type="secondary">이번 주 생산성 점수</Typography.Text>
-        <Typography.Title level={1} style={{ margin: '8px 0', color: '#1677ff' }}>
-          {stats.score}점
-        </Typography.Title>
-        <Typography.Text type="secondary">
-          가장 많이 완료한 카테고리: {stats.topCategory}
+        <div className="goorm-score-value">{stats.score}</div>
+        <Typography.Text type="secondary" style={{ fontSize: 15 }}>
+          점 · 가장 많이 완료: {stats.topCategory}
         </Typography.Text>
-      </Card>
+      </div>
 
       <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
         <Col xs={24} sm={8}>
-          <Card>
+          <PageCard>
             <Statistic title="할 일 완료율" value={stats.taskRate} suffix="%" />
-          </Card>
+          </PageCard>
         </Col>
         <Col xs={24} sm={8}>
-          <Card>
+          <PageCard>
             <Statistic title="습관 달성률 (오늘)" value={stats.habitRate} suffix="%" />
-          </Card>
+          </PageCard>
         </Col>
         <Col xs={24} sm={8}>
-          <Card>
+          <PageCard>
             <Statistic title="일정 이행률" value={stats.eventRate} suffix="%" />
-          </Card>
+          </PageCard>
         </Col>
       </Row>
 
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={12}>
-          <Card title="주간 생산성">
+          <PageCard title="주간 생산성">
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={stats.weeklyData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -85,10 +84,10 @@ export default function StatsPage() {
                 <Bar dataKey="score" name="생산성" fill="#1677ff" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </Card>
+          </PageCard>
         </Col>
         <Col xs={24} lg={12}>
-          <Card title="월간 생산성 (주별)">
+          <PageCard title="월간 생산성 (주별)">
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={stats.monthlyData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -98,10 +97,10 @@ export default function StatsPage() {
                 <Bar dataKey="score" name="생산성" fill="#52c41a" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </Card>
+          </PageCard>
         </Col>
         <Col xs={24}>
-          <Card title="우선순위별 완료 분석">
+          <PageCard title="우선순위별 완료 분석">
             <ResponsiveContainer width="100%" height={280}>
               <PieChart>
                 <Pie
@@ -123,7 +122,7 @@ export default function StatsPage() {
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
-          </Card>
+          </PageCard>
         </Col>
       </Row>
     </div>

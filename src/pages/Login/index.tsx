@@ -1,4 +1,4 @@
-import { Card, Form, Input, Button, Typography, message, Divider, Alert } from 'antd'
+import { Form, Input, Button, Typography, message, Divider } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
 
@@ -32,20 +32,15 @@ export default function LoginPage() {
   }
 
   return (
-    <Card style={{ width: '100%', maxWidth: 420 }}>
-      <Typography.Title level={4} style={{ marginBottom: 16 }}>
+    <>
+      <Typography.Title level={3} style={{ marginBottom: 8, fontWeight: 700 }}>
         로그인
       </Typography.Title>
+      <Typography.Text type="secondary" style={{ display: 'block', marginBottom: 28 }}>
+        계정에 로그인하고 생산성을 높여보세요
+      </Typography.Text>
 
-      <Alert
-        type="info"
-        showIcon
-        message="로컬 MVP"
-        description="데이터는 브라우저 localStorage에 저장됩니다. .env · Supabase 설정이 필요 없습니다."
-        style={{ marginBottom: 16 }}
-      />
-
-      <Form form={form} layout="vertical" onFinish={(v) => void onFinish(v)}>
+      <Form form={form} layout="vertical" onFinish={(v) => void onFinish(v)} size="large">
         <Form.Item
           name="email"
           label="이메일"
@@ -54,17 +49,17 @@ export default function LoginPage() {
             { type: 'email', message: '올바른 이메일 형식이 아닙니다' },
           ]}
         >
-          <Input placeholder="you@example.com" size="large" />
+          <Input placeholder="you@example.com" />
         </Form.Item>
         <Form.Item
           name="password"
           label="비밀번호"
           rules={[{ required: true, message: '비밀번호를 입력하세요' }]}
         >
-          <Input.Password placeholder="비밀번호" size="large" />
+          <Input.Password placeholder="비밀번호" />
         </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block size="large" loading={loading}>
+        <Form.Item style={{ marginBottom: 12 }}>
+          <Button type="primary" htmlType="submit" block loading={loading}>
             로그인
           </Button>
         </Form.Item>
@@ -73,7 +68,7 @@ export default function LoginPage() {
       <Button block size="large" onClick={() => void handleDemoLogin()} loading={loading}>
         데모 계정으로 시작
       </Button>
-      <Typography.Text type="secondary" style={{ display: 'block', marginTop: 8, fontSize: 12 }}>
+      <Typography.Text type="secondary" style={{ display: 'block', marginTop: 10, fontSize: 12 }}>
         데모: {DEMO_EMAIL} / {DEMO_PASSWORD}
       </Typography.Text>
 
@@ -81,6 +76,6 @@ export default function LoginPage() {
       <Typography.Text>
         계정이 없으신가요? <Link to="/signup">회원가입</Link>
       </Typography.Text>
-    </Card>
+    </>
   )
 }

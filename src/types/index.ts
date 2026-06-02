@@ -71,3 +71,32 @@ export interface Dday {
 }
 
 export type ThemeMode = 'light' | 'dark'
+
+export type ShareRole = 'read' | 'edit' | 'admin'
+
+export interface SharedCalendar {
+  id: string
+  owner_id: string
+  name: string
+  invite_token: string
+  created_at: string
+}
+
+export interface ShareMember {
+  id: string
+  calendar_id: string
+  email: string
+  role: ShareRole
+  user_id: string | null
+}
+
+export interface ProductivityStats {
+  score: number
+  taskRate: number
+  habitRate: number
+  eventRate: number
+  topCategory: string
+  weeklyData: { label: string; score: number; tasks: number }[]
+  monthlyData: { label: string; score: number }[]
+  categoryData: { name: string; value: number; color: string }[]
+}

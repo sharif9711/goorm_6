@@ -6,6 +6,8 @@ import type {
   Goal,
   Habit,
   HabitLog,
+  ShareMember,
+  SharedCalendar,
   Task,
   UserProfile,
 } from '@/types'
@@ -29,6 +31,8 @@ export interface LocalDatabase {
   goals: Goal[]
   ddays: Dday[]
   categories: Category[]
+  shared_calendars: SharedCalendar[]
+  share_members: ShareMember[]
 }
 
 function emptyDb(): LocalDatabase {
@@ -43,6 +47,8 @@ function emptyDb(): LocalDatabase {
     goals: [],
     ddays: [],
     categories: [],
+    shared_calendars: [],
+    share_members: [],
   }
 }
 
@@ -209,7 +215,28 @@ function seedDemoData(): LocalDatabase {
     goals,
     ddays,
     categories: [],
+    shared_calendars: [
+      {
+        id: generateId(),
+        owner_id: userId,
+        name: '팀 공유 캘린더',
+        invite_token: generateId().slice(0, 8),
+        created_at: now.toISOString(),
+      },
+    ],
+    share_members: [],
   }
+
+  const calId = db.shared_calendars[0].id
+  db.share_members = [
+    {
+      id: generateId(),
+      calendar_id: calId,
+      email: 'teammate@example.com',
+      role: 'edit',
+      user_id: null,
+    },
+  ]
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(db))
   return db

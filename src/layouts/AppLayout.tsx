@@ -177,7 +177,7 @@ export function AppLayout() {
 
       <Layout style={{ marginLeft: siderWidth, transition: 'margin-left 0.25s ease' }}>
         <Header className="goorm-header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div className="goorm-header-left">
             {isMobile ? (
               <Button
                 type="text"
@@ -192,12 +192,13 @@ export function AppLayout() {
               />
             )}
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div className="goorm-header-right">
             <Button
               type="text"
               shape="circle"
               icon={themeMode === 'light' ? <MoonOutlined /> : <SunOutlined />}
               onClick={toggleTheme}
+              aria-label="테마 전환"
             />
             <Dropdown menu={userMenu} placement="bottomRight">
               <div className="goorm-header-user">

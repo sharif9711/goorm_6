@@ -69,11 +69,32 @@ body {
 }
 
 .goorm-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   padding: 0 24px !important;
   height: 64px !important;
-  line-height: 64px !important;
+  line-height: normal !important;
   border-bottom: 1px solid var(--goorm-border);
   backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.goorm-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.goorm-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .goorm-header-user {
